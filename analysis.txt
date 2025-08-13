@@ -1,0 +1,49 @@
+
+1. Baseline: QuickSort Implementation
+-> From the first runs:
+   Normal QuickSort (no optimization flags)
+
+      100,000 elements: ~0.26 seconds
+      1,000,000 elements: ~0.278 seconds (real)
+
+
+2. QuickSort with Compiler Optimizations
+   three optimization levels:
+   | Optimization Flag | Time (100k) | Notes                                                                                |
+| ----------------- | ----------- | ------------------------------------------------------------------------------------ |
+| `-O1`             | 0.08s       | Big improvement from baseline (3.25× faster).                                        |
+| `-O2`             | 0.08s       | Same as `-O1` for this case.                                                         |
+| `-O3`             | 0.11s       | Slightly slower — sometimes `-O3` produces larger code that hurts cache performance. |
+
+Observation: -O1 and -O2 are optimal here. -O3 didn't help and may have caused cache inefficiency.
+
+
+3. Profile Analysis (gprof results)
+  gprof runs:
+   Main hot spots likely were in:
+     . partition function
+     . quickSort recursion overhead
+     . Possibly swap function (small but repeated often)
+These are typical for QuickSort because partitioning happens at every recursive step.
+
+
+4. Optimized Version: QuickSort + Insertion Sort Hybrid
+modified QuickSort to switch to Insertion Sort for small partitions.
+Performance now:
+ | Version          | Elements        | Time    |
+| ---------------- | --------------- | ------- |
+| Optimized Hybrid | 100,000         | 0.1469s |
+| Optimized Hybrid | 100,000 (`-O2`) | 0.0695s |
+| Optimized Hybrid | 100,000 (`-O3`) | 0.0669s |
+
+Observation:
+ . he hybrid approach + compiler optimization gives you ~3.8× speedup over baseline QuickSort.
+ . -O2 and -O3 are almost identical here, meaning further compiler-level optimizations aren't improving much beyond -O2.
+ . The biggest boost is from algorithmic optimization (insertion sort for small partitions), not just compiler flags.
+
+
+5. Overall Performance Gain
+   .  Baseline QuickSort: ~0.26s
+   . Best Hybrid + Compiler Optimization: ~0.0669s
+   . Speedup: ~3.88× faster
+
