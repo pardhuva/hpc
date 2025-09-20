@@ -1,0 +1,26 @@
+//until now we saw omp with threads for shared memory data independent and task independent 
+1.cosntruct
+2.create threadds1,2
+3.get_threads
+4.time
+5. for seq
+6.for omp 
+
+
+| Concept         | Description                                                |
+| --------------- | ---------------------------------------------------------- |
+| Constructs      | `#pragma omp parallel`, `parallel for`, etc.               |
+| Thread creation | `num_threads()`, `omp_set_num_threads()`                   |
+| Get thread info | `omp_get_thread_num()`, `omp_get_num_threads()`            |
+| Timing          | `omp_get_wtime()`                                          |
+| Serial loops    | Measured execution time of normal loops                    |
+| Parallel loops  | `#pragma omp parallel for` for data/task independent loops |
+
+
+//now what if the shared memory is accessed by different threads -> race condition 
+//so use synchronisatiosn methods 
+//problem.c
+1. critical 
+2.atomic
+3.barrier
+4.ordered
