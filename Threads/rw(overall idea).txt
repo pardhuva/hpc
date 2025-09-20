@@ -1,0 +1,28 @@
+
+//actually there is shared data where multiple readers read it and also multiple writers write it 
+//so multiple reading no issues because they will not modify anything  but multiple writing is an issue 
+//and also reading while writing also issue as it takes inconsistent data  
+//so we if you use normal mutex locks then even for readers it cause other reader to wait its useless 
+//only multiple writing or reading while writing are the problems 
+//so when a write starts writing we have to block all the readers from reading it  this why we use the below functions 
+
+//functions (API)
+// pthread_rwlock_t rwlock = PTHREAD_RWLOCK_INITIALIZER; → initialize
+// pthread_rwlock_rdlock(&rwlock); → acquire read lock
+// pthread_rwlock_wrlock(&rwlock); → acquire write lock
+// pthread_rwlock_unlock(&rwlock); → release lock
+// pthread_rwlock_destroy(&rwlock); → cleanup
+
+/*
+Increases concurrency for multiple readers
+Prevents race conditions for writers
+More efficient than normal mutex when reads dominate
+*/
+/*| Scenario                            | Mutex Needed? | Notes                                     |
+| ----------------------------------- | ------------- | ----------------------------------------- |
+| 1 reader + 1 writer (sequential)    |  Optional    | Safe if access is serialized              |
+| 1 reader + 1 writer (concurrent)    |  Yes         | Reader may see incomplete write           |
+| Multiple readers + 1 writer         |  Yes         | Protect writer; readers block only writer |
+| Multiple readers + multiple writers |  Yes         | Protect both readers and writers          |
+
+*/
