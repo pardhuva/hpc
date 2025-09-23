@@ -46,3 +46,6 @@ int main() {
 //so if you take that mutex condition for readers to allwo mutiple readers then 
 //if some writer was writing the shared variable some readers might read the previous values which is inconsistent data so we shoudl remove the mutex 
 //we here code is correct but not parallel for multiple users we use rw
+
+//here you were only either read or right only one at a time 
+//but actually multiple readers can read 

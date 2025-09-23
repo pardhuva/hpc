@@ -13,9 +13,9 @@ int i=0;
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 void* producing() {
-    pthread_mutex_lock(&lock);
+    
     while(1){
-
+         pthread_mutex_lock(&lock);
          if(count<BUFFER_SIZE){
          buffer[in] = i;
          printf("Produced: %d at index %d\n", i, in);
@@ -31,8 +31,9 @@ void* producing() {
     
 }
 void* consuming() {
-    pthread_mutex_lock(&lock);
+   
     while(1){
+       pthread_mutex_lock(&lock);
        if(count >0){
           int consumed = buffer[out];
             printf("Consumed: %d from index %d\n", consumed, out);
