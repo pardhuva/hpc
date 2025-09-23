@@ -19,5 +19,5 @@ int main() {
     return 0;
  }
 
- //here it takes without using for in the clause Total time taken is 0.000289
-//if you use for in clause omp paralell for Total time taken is 0.000140
+ //here it takes without using for in the clause Total time taken is 0.000289 -> here you were parallelising the for loop to print once 
+//if you use for in clause omp paralell for Total time taken is 0.000140 -> you are executing the for loop for eahc thread entirely 

@@ -11,7 +11,7 @@ int main() {
 
     #pragma omp parallel for
     for(int i=0; i<100; i++) {
-       #pragma omp critical 
+       #pragma omp atomic
        {
            sum += i;  
        }
